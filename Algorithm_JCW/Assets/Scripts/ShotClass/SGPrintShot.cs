@@ -2,36 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
-
 public class SGPrintShot : SGBaseShot
 {
     private static readonly string[] SPLIT = { "\n", "\r", "\r\n" };        //메모장을 읽어서 가져올 데이터를 나눌 3가지 값
-
     public TextAsset paintDataText;                                         //메모장 텍스트를 읽을것 파일
-
     public float paintCenterAngle = 180f;
     public float betweenAngle = 3f;
     public float nextLineDelay = 0.1f;
-
     private int nowIndex;
     private float delayTimer;
-
     private List<List<int>> paintData;
     private float paintStartAngle;
-
-
     public override void Shot()
     {
         if (projectileSpeed <= 0f || paintDataText == null || string.IsNullOrEmpty(paintDataText.text))
         {//파일 텍스트 검사 , 테스트 파일 안에 string 이 있는지도 검사 
             return;
         }
-
         if (_shooting)
         {
             return;
         }
-
         if (paintData != null)           //LIst 초기화 
         {
             for (int i = 0; i < paintData.Count; i++)
@@ -42,34 +33,26 @@ public class SGPrintShot : SGBaseShot
             paintData.Clear();
             paintData = null;
         }
-
         paintData = LoadPaintData();
-
         if (paintData == null || paintData.Count <= 0)
         {
             return;
         }
-
         paintStartAngle = paintCenterAngle - (paintData[0].Count % 2 == 0 ?
             (betweenAngle * paintData[0].Count / 2f) + (betweenAngle / 2f) :
             betweenAngle * Mathf.Floor(paintData[0].Count / 2f));
-
         _shooting = true;
         nowIndex = 0;
         delayTimer = 0f;
     }
-
     private List<List<int>> LoadPaintData()
     {
         if (paintDataText == null || string.IsNullOrEmpty(paintDataText.text))
         {
             return null;
         }
-
         string[] lines = paintDataText.text.Split(SPLIT, System.StringSplitOptions.RemoveEmptyEntries); //데이터를 짤라서 라인별로 입력
-
         var paintData = new List<List<int>>(lines.Length);
-
         for (int i = 0; i < lines.Length; i++)
         {
             if (lines[i].StartsWith("#"))
@@ -77,18 +60,14 @@ public class SGPrintShot : SGBaseShot
                 continue;
             }
             paintData.Add(new List<int>(lines[i].Length));
-
             for (int j = 0; j < lines[i].Length; j++)
             {
                 paintData[paintData.Count - 1].Add(lines[i][j] == 'O' ? 1 : 0);         //알파벳 O (오)
             }
         }
-
         paintData.Reverse();
-
         return paintData;
     }
-
     protected virtual void Update()
     {
         if (_shooting == false)
@@ -116,6 +95,14 @@ public class SGPrintShot : SGBaseShot
                     projectile.UpdateMove(-delayTimer);
                 }
             }
+            nowIndex++;
+            FiredShot();
+            if (nowIndex >= paintData.Count)
+            {
+                FinishedShot();
+                return;
+            }
+            delayTimer += nextLineDelay;
         }
     }
 }

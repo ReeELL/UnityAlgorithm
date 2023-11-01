@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Managers : MonoBehaviour
 {
-    static Managers s_instance;
+    static Managers s_instance;                                 //매니저는 싱글톤으로 관리
     public static Managers Instance { get { return s_instance; } }
 
     private static bool isInitialized = false;
-    public void Awake()
+    public void Awake()                                             //Awake 시점에서 Init() 
     {
         Init();
     }
@@ -24,7 +24,7 @@ public class Managers : MonoBehaviour
             }
 
             DontDestroyOnLoad(go); 
-            s_instance = go.GetComponent<Managers>();
+            s_instance = go.GetComponent<Managers>();                   //인스턴스를 찾아서 manager 전달
             isInitialized = true; // 초기화 완료
         }
     }
@@ -33,11 +33,11 @@ public class Managers : MonoBehaviour
         return isInitialized;
     }
 
-    SGProjectileManager _projectileManager = new SGProjectileManager();
-    SGShotManager _shotManager = new SGShotManager();
-    
-    public static SGShotManager ShotManager { get { return Instance?._shotManager; } }
-    public static SGProjectileManager projectileManager { get { return Instance?._projectileManager; } }
-   
+    SGProjectileManager _projectileManager = new SGProjectileManager();         //Manager 하위에 projectilManager 
+    SGShotManager _shotManager = new SGShotManager();                           //Manager 하위에 shotManager
+
+    public static SGShotManager ShotManager { get { return Instance?._shotManager; } }          //SGShotManager 접근시 인스턴스 리턴 
+    public static SGProjectileManager projectileManager { get { return Instance?._projectileManager; } } //SGProjectileManager 접근시 인스턴스 리턴 
+
 
 }

@@ -11,21 +11,21 @@ public class SGShotCtrl : MonoBehaviour
 
     public enum UpdateStep
     {
-        StartDelay,
-        StartShot,
-        WaitDelay,
-        UpdateIndex,
-        FinishShot,
+        StartDelay,                 //시작딜레이
+        StartShot,                  //샷 시작
+        WaitDelay,                  //기다리는 state
+        UpdateIndex,                //순서 인데스 업데이트
+        FinishShot,                 //끝 시점 
     }
 
     [Serializable]
     public class ShotInfo
     {       
         public SGBaseShot shotObj;
-        public float afterDelay = 0.1f;
+        public float afterDelay = 0.1f;                             // 0초가 되지않에 0.1로 초기화
     }
     
-    public SGUtil.AXIS axisMove = SGUtil.AXIS.X_AND_Y;   
+    public SGUtil.AXIS axisMove = SGUtil.AXIS.X_AND_Y;              //XY XZ 기준 설정하는 Enum
     public bool inheritAngle = false;    
     public bool startOnAwake = true;  
     public float startOnAwakeDelay = 1f;   
@@ -82,7 +82,7 @@ public class SGShotCtrl : MonoBehaviour
         }
     }
 
-    public void UpdateShot(float deltaTime)
+    public void UpdateShot(float deltaTime)         //State 검사해서 샷을 진행 
     {
          if (_shooting == false)
         {
@@ -125,7 +125,7 @@ public class SGShotCtrl : MonoBehaviour
             }
             else
             {
-                nowShotInfo.afterDelay = 0.1f;
+                nowShotInfo.afterDelay = 0.1f;                  //강제로 0.1f 로 설정 0초일경우 
                 delayTimer = 0f;
                 updateStep = UpdateStep.UpdateIndex;
             }

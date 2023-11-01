@@ -82,6 +82,7 @@ public static class SGUtil
         }
         return angle;
     }
+
     public static float GetShiftedAngle(int wayIndex, float baseAngle, float betweenAngle)
     {
         float angle = wayIndex % 2 == 0 ?
@@ -90,6 +91,7 @@ public static class SGUtil
 
         return angle;
     }
+
 }
 
 

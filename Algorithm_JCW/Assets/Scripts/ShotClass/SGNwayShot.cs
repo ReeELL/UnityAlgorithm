@@ -14,11 +14,11 @@ public class SGNwayShot : SGBaseShot
 
     public override void Shot()
     {
-        if (projectileNum <= 0 || projectileSpeed <= 0 || wayNum <= 0)
+        if(projectileNum <= 0 || projectileSpeed <= 0 || wayNum <= 0)
         {
             return;
         }
-        if (_shooting)
+        if(_shooting) 
         {
             return;
         }
@@ -28,15 +28,15 @@ public class SGNwayShot : SGBaseShot
     }
     protected virtual void Update()
     {
-        if (_shooting == false)
+        if(_shooting == false)
         {
             return;
         }
         delayTimer -= SGTimer.Instance.deltaTime;
 
-        while (delayTimer < 0)
+        while(delayTimer < 0) 
         {
-            for (int i = 0; i < wayNum; i++)
+            for(int i = 0; i < wayNum; i++) 
             {
 
                 SGProjectile projectile = GetProjectile(transform.position);
@@ -55,14 +55,14 @@ public class SGNwayShot : SGBaseShot
 
                 nowIndex++;
 
-                if (nowIndex >= projectileNum)
+                if(nowIndex >= projectileNum)
                 {
                     break;
                 }
             }
             FiredShot();
 
-            if (nowIndex >= projectileNum)
+            if(nowIndex >= projectileNum)
             {
                 FinishedShot();
                 return;

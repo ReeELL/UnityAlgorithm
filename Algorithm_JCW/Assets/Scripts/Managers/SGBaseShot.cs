@@ -4,9 +4,9 @@ using UnityEngine.Events;
 using UnityEngine.Serialization;
 using UnityEngine;
 
-public abstract class SGBaseShot : MonoBehaviour
+public abstract class SGBaseShot : MonoBehaviour                    //총알의 기본적인 구성 
 {
-    public GameObject projectilePrefab;
+    public GameObject projectilePrefab;                             //총알 프리팹 설정
     
     public int projectileNum = 10;    
     public float projectileSpeed = 2f;   
@@ -52,7 +52,7 @@ public abstract class SGBaseShot : MonoBehaviour
     {
        
     }
-    public virtual void FinishedShot()
+    public virtual void FinishedShot()          //샷이 끝났을때 이벤트를 넣거나 함수 호출
     {
         _shooting = false;
        

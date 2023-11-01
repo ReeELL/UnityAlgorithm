@@ -54,7 +54,7 @@ public class SGSinWaveShot : SGBaseShot
 
                 float angle = SGUtil.GetShiftedAngle(i, baseAngle, betweenAngle);
 
-                ShotProjectile(projectile, projectileSpeed, angle, false, null, 0f, true, waveSpeed, waveRangeSize, waveInverse);
+                ShotProjectile(projectile, projectileSpeed, angle , false , null , 0f, true, waveSpeed , waveRangeSize , waveInverse);
 
                 projectile.UpdateMove(-delayTimer);
 

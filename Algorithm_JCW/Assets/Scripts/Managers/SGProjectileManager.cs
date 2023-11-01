@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class SGProjectileManager
 {    
-    private List<SGProjectile> projectileList = new List<SGProjectile>(2000);
-    private HashSet<SGProjectile> projectileHashSet = new HashSet<SGProjectile>();
+    private List<SGProjectile> projectileList = new List<SGProjectile>(2000);           //총알 리스트 2000개 관리
+    private HashSet<SGProjectile> projectileHashSet = new HashSet<SGProjectile>();      //각각 HashSet으로 접근해서 관리
 
     public int activeprojectileCount { get { return projectileList.Count; } }
  
